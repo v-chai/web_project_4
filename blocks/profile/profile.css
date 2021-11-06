@@ -2,7 +2,7 @@
     display: flex;
     flex-direction:column;
     margin: 38.25px auto 36px;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     width: 100%;
 }
@@ -10,6 +10,6 @@
 @media screen and (min-width: 700px) {
     .profile {
         flex-direction: row;
-        margin: 36.25px auto 46.25px 0;
+        margin: 36.25px 0 46.25px;
     }
 }
