@@ -7,12 +7,11 @@
     padding: 0;
 }
 
-@media screen and (min-width: 680px) {
+@media screen and (min-width: 700px) {
     .container {
         width: 67%;
         max-width: 880px;
         margin: 0;
         padding: 0;
-        border: 1px red;
     }
 }
