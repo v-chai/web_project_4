@@ -1,0 +1,10 @@
+.element {
+    background-color: white;
+    border-radius: 10px;
+    background-image: '../../../images/yosemite-valley.png';
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+}

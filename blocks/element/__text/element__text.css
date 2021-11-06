@@ -1,0 +1,11 @@
+.element__text {
+    font-weight: 900;
+    color: #000;
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
