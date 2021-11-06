@@ -1,0 +1,19 @@
+.popup__close-button {
+    width: 26px;
+    height: 26px;
+    margin-bottom: 13px;
+    transform: rotate(-45deg);
+}
+
+.popup__close-button:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+@media screen and (min-width: 700px) {
+    .popup__close-button{
+        width: 40px;
+        height: 40px;
+        margin-bottom: 0;
+        margin-right: -40px;
+    }
+}
