@@ -4,3 +4,9 @@
     grid-gap: 30px;
     margin-top: 76px;
 }
+
+@media screen and (min-width: 700px) {
+    .popup__form {
+        margin-top: 54px;
+    }
+}
