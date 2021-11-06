@@ -1,16 +1,16 @@
-# Project 4: Around The U.S.
+# Practicum Web Developer Bootcamp - Project 4: Around The U.S.
 
-### Overview
+## Deployed Project
+(insert link)
 
-* Figma
-* Images
+## Languages and Technologies Used
 
-**Figma**
+## Overview
 
-* [Link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
+Designed according to this [Figma project brief](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
 
-**Images**
+## Key Skills Utilized
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
+## Possible Next Steps
 
-Have fun with JavaScript!
+
