@@ -4,13 +4,12 @@
     margin: 38.25px auto 36px;
     justify-content: flex-start;
     align-items: center;
-    width: 88%;
+    width: 100%;
 }
 
 @media screen and (min-width: 700px) {
     .profile {
         flex-direction: row;
         margin: 36.25px auto 46.25px 0;
-        width: 100%;
     }
 }
