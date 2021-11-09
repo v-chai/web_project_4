@@ -2,6 +2,7 @@
     margin: 28px auto 32px 27px;
     width: 126px;
     height: 24px;
+    opacity: 1;
 }
 
 @media screen and (min-width: 700px) {

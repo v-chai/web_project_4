@@ -13,10 +13,8 @@
     }
 }
 
-@media screen and (min-width: 1080px) {
+@media screen and (min-width: 980px) {
     .profile__subheading {
-        text-align: left;
-        margin-top: 16px;
         font-size: 22px;
     }
 }

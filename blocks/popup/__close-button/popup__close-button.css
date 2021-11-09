@@ -2,6 +2,11 @@
     width: 26px;
     height: 26px;
     margin-bottom: 13px;
+    background-color: transparent;
+    border: 0;
+    background-image: url("../../../images/add.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
     transform: rotate(-45deg);
 }
 
@@ -9,8 +14,9 @@
     opacity: 0.6;
     cursor: pointer;
 }
+
 @media screen and (min-width: 700px) {
-    .popup__close-button{
+    .popup__close-button {
         width: 40px;
         height: 40px;
         margin-bottom: 0;
