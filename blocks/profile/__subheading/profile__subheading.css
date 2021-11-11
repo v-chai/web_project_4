@@ -12,9 +12,3 @@
         font-size: 18px;
     }
 }
-
-@media screen and (min-width: 980px) {
-    .profile__subheading {
-        font-size: 22px;
-    }
-}
