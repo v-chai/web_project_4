@@ -1,6 +1,8 @@
 .popup__close-button {
-    width: 26px;
-    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
+    margin: 0;
+    padding: 0;
     margin-bottom: 13px;
     background-color: transparent;
     border: 0;
@@ -17,8 +19,8 @@
 
 @media screen and (min-width: 700px) {
     .popup__close-button {
-        width: 40px;
-        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
         margin-bottom: 0;
         margin-right: -40px;
     }

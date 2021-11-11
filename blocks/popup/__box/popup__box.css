@@ -7,8 +7,8 @@
     box-sizing: border-box;
 }
 
-@media screen and (min-width:700px) {
-    .popup_box {
+@media screen and (min-width: 700px) {
+    .popup__box {
         padding: 34px 36px 36.5px;
     }
 }
