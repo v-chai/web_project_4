@@ -33,27 +33,27 @@ profileEditForm.addEventListener("submit", handleProfileFormSubmit)
 const initialCards = [
     {
         name: "Oakland Bay Bridge",
-        link: "../images/oakland.jpg"
+        link: "./images/oakland.jpg"
     },
     {
         name: "Washington DC Metro",
-        link: "../images/dc.jpg"
+        link: "./images/dc.jpg"
     },
     {
         name: "Manhattan Bridge",
-        link: "../images/new-york.jpg"
+        link: "./images/new-york.jpg"
     },
     {
         name: "Portland, OR",
-        link: "../images/portland.jpg"
+        link: "./images/portland.jpg"
     },
     {
         name: "Minneapolis Stone Arch",
-        link: "../images/minneapolis.jpg"
+        link: "./images/minneapolis.jpg"
     },
     {
         name: "New Haven, CT",
-        link: "../images/new-haven.jpg"
+        link: "./images/new-haven.jpg"
     }
 ];
 
