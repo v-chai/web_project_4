@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./pages/index.css" />
 </head>
 <body class="page">
-    <section class="popup">
+    <section class="popup popup_type_profile-edit">
         <div class="popup__container">
             <button class="popup__close-button">&nbsp;</button>
             <div class="popup__box">
@@ -31,6 +31,20 @@
                     <input type="text" class="popup__form-input" value="Image link" id="popup__form_image-url"
                         name="image-url" />
                     <button class="popup__save-button">Create</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="popup">
+        <div class="popup__container popup__container_type_photo">
+            <button class="popup__close-button">&nbsp;</button>
+            <div class="popup__box">
+                <h2 class="popup__title">Edit Profile</h2>
+                <form class="popup__form" id="profile_edit_form" name="profile_edit_form">
+                    <input type="text" class="popup__form-input" value="Name" id="popup__form_username" name="username" />
+                    <input type="text" class="popup__form-input" value="About me" id="popup__form_about-me"
+                        name="about-me" />
+                    <button class="popup__save-button">Save</button>
                 </form>
             </div>
         </div>

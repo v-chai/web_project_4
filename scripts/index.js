@@ -1,17 +1,17 @@
 // Profile edit form //
-const profileEdit = document.querySelector(".profile__edit-button");
-const popupContainer = document.querySelector(".popup");
-const popupClose = popupContainer.querySelector(".popup__close-button");
-const profileEditForm = popupContainer.querySelector(".popup__form");
+const profileEditButton = document.querySelector(".profile__edit-button");
+const profileEditPopup = document.querySelector(".popup_type_profile-edit");
+const popupClose = profileEditPopup.querySelector(".popup__close-button");
+const profileEditForm = profileEditPopup.querySelector(".popup__form");
 let username = document.querySelector(".profile__name")
 let userDescription = document.querySelector(".profile__subheading");
-let nameInput = popupContainer.querySelector("#popup__form_username");
-let aboutMeInput = popupContainer.querySelector("#popup__form_about-me");
+let nameInput = profileEditPopup.querySelector("#popup__form_username");
+let aboutMeInput = profileEditPopup.querySelector("#popup__form_about-me");
 
 function handleProfileEditClick() {
 
-    popupContainer.classList.toggle("popup_opened");
-    if (popupContainer.classList.contains("popup_opened")) {
+    profileEditPopup.classList.toggle("popup_opened");
+    if (profileEditPopup.classList.contains("popup_opened")) {
         nameInput.defaultValue = username.textContent;
         aboutMeInput.defaultValue = userDescription.textContent;
     }
@@ -24,7 +24,7 @@ function handleProfileFormSubmit(evt) {
     handleProfileEditClick();
 }
 
-profileEdit.addEventListener("click", handleProfileEditClick);
+profileEditButton.addEventListener("click", handleProfileEditClick);
 popupClose.addEventListener("click", handleProfileEditClick);
 profileEditForm.addEventListener("submit", handleProfileFormSubmit)
 
@@ -72,25 +72,29 @@ function addCard(cardName, cardLink) {
     cardElement.querySelector(".element__delete-icon").addEventListener("click", function (evt) {
         const cardItem = evt.target.closest(".element");
         cardItem.remove();
-    })
+    });
 
     cardElement.querySelector(".element__heart").addEventListener("click", function (evt) {
-        evt.target.classList.toggle('element__heart_like_true')
-    })
+        evt.target.classList.toggle('element__heart_like_true');
+    });
+
+    cardElement.querySelector(".element__photo").addEventListener("click", function (evt) {
+        photoPopup(evt.target);
+    });
 }
 
 initialCards.forEach(card => addCard(card['name'], card['link']));
 
 // Add card form //
 const addCardButton = document.querySelector(".profile__add-button");
-const addCardPopupContainer = document.querySelector(".popup_type_add-card");
-const cardPopupClose = addCardPopupContainer.querySelector(".popup__close-button");
-const addCardForm = addCardPopupContainer.querySelector(".popup__form");
-let imageTitle = addCardPopupContainer.querySelector("#popup__form_title")
-let imageUrl = addCardPopupContainer.querySelector("#popup__form_image-url");
+const addCardPopup = document.querySelector(".popup_type_add-card");
+const cardPopupClose = addCardPopup.querySelector(".popup__close-button");
+const addCardForm = addCardPopup.querySelector(".popup__form");
+let imageTitle = addCardPopup.querySelector("#popup__form_title");
+let imageUrl = addCardPopup.querySelector("#popup__form_image-url");
 
 function handleAddCardClick() {
-    addCardPopupContainer.classList.toggle("popup_opened");
+    addCardPopup.classList.toggle("popup_opened");
 }
 
 function handleAddCardFormSubmit(evt) {
@@ -105,6 +109,14 @@ cardPopupClose.addEventListener("click", handleAddCardClick);
 addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
 
+// // Photo popup //
+// function handlePhotoClick() {
+//     const photoPopup = document.querySelector(".popup__container_type_photo");
+//     photoPopup.classList.toggle("popup_opened");
+// }
+// function photoPopup(photo) {
+//     photo.addEventListener("click", handlePhotoClick);
+// }
 
 
 
