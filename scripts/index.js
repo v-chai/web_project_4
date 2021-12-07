@@ -69,6 +69,11 @@ function addCard(cardName, cardLink) {
 
     cardElements.prepend(cardElement);
 
+    cardElement.querySelector(".element__delete-icon").addEventListener("click", function (evt) {
+        const cardItem = evt.target.closest(".element");
+        cardItem.remove();
+    })
+
     cardElement.querySelector(".element__heart").addEventListener("click", function (evt) {
         evt.target.classList.toggle('element__heart_like_true')
     })
