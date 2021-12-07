@@ -116,10 +116,14 @@ const popupImage = photoPopupContainer.querySelector(".popup__image");
 const popupCaption = photoPopupContainer.querySelector(".popup__caption")
 
 function handlePhotoClick(photo) {
-    popupImage.src = photo.src;
-    popupImage.alt = photo.alt;
-    popupCaption.textContent = photo.alt;
-    photoPopupContainer.classList.toggle("popup_opened");
+    if (photoPopupContainer.classList.contains("popup_opened")) {
+        photoPopupContainer.classList.remove("popup_opened");
+    } else {
+        popupImage.src = photo.src;
+        popupImage.alt = photo.alt;
+        popupCaption.textContent = photo.alt;
+        photoPopupContainer.classList.add("popup_opened");
+    }
 }
 
 photoCloseButton.addEventListener("click", handlePhotoClick);
