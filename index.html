@@ -21,6 +21,20 @@
             </div>
         </div>
     </section>
+    <section class="popup popup_type_add-card">
+        <div class="popup__container">
+            <button class="popup__close-button">&nbsp;</button>
+            <div class="popup__box">
+                <h2 class="popup__title">New Place</h2>
+                <form class="popup__form" id="profile_edit_form" name="profile_edit_form">
+                    <input type="text" class="popup__form-input" value="Title" id="popup__form_title" name="title" />
+                    <input type="text" class="popup__form-input" value="Image link" id="popup__form_image-url"
+                        name="image-url" />
+                    <button class="popup__save-button">Create</button>
+                </form>
+            </div>
+        </div>
+    </section>
     <div class="container">
         <header class="header">
             <img class="header__logo" src="./images/header__logo.svg" alt="Around the U.S.">
@@ -39,54 +53,22 @@
                 <button type="button" class="profile__add-button">&nbsp;</button>
             </section>
             <section class="elements">
-                <article class="element">
-                    <img src="./images/oakland.jpg" alt="Oakland Bay Bridge" class="element__photo">
-                    <div class="element__title">
-                        <h2 class="element__text">Oakland Bay Bridge</h2>
-                        <button type="button" class="element__heart">&nbsp;</button>
-                    </div>
-                </article> 
-                <article class="element">
-                    <img src="./images/dc.jpg" alt="Washington, DC Metro" class="element__photo">
-                    <div class="element__title">
-                        <h2 class="element__text">Washington DC Metro</h2>
-                        <button type="button" class="element__heart">&nbsp;</button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img src="./images/new-york.jpg" alt="Manhattan Bridge" class="element__photo">
-                    <div class="element__title">
-                        <h2 class="element__text">Manhattan Bridge</h2>
-                        <button type="button" class="element__heart">&nbsp;</button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img src="./images/portland.jpg" alt="Portland, Oregon" class="element__photo">
-                    <div class="element__title">
-                        <h2 class="element__text">Portland, OR</h2>
-                        <button type="button" class="element__heart">&nbsp;</button>                    
-                    </div>
-                </article>
-                <article class="element">
-                    <img src="./images/minneapolis.jpg" alt="Minneapolis Stone Arch Bridge" class="element__photo">
-                    <div class="element__title">
-                        <h2 class="element__text">Minneapolis Stone Arch</h2>
-                        <button type="button" class="element__heart">&nbsp;</button>                    
-                    </div>
-                </article>
-                <article class="element">
-                    <img src="./images/new-haven.jpg" alt="New Haven CT" class="element__photo">
-                    <div class="element__title">
-                        <h2 class="element__text">New Haven, CT</h2>
-                        <button type="button" class="element__heart">&nbsp;</button>
-                    </div>
-                </article>
+                <template id="card">
+                    <article class="element">
+                        <img class="element__photo">
+                        <img class="element__delete-icon" src="./images/delete.svg" alt="Delete photo">
+                        <div class="element__title">
+                            <h2 class="element__text"></h2>
+                            <button class="element__heart">&nbsp;</button>
+                        </div>
+                    </article>
+                </template>
             </section>
         </main>
         <footer class="footer">
             <p class="footer__text">© V-Chai x Practicum</p>
         </footer>
     </div>
-    <script src="./scripts/popup.js"></script>
+    <script src="./scripts/index.js"></script>
 </body>
 </html>
