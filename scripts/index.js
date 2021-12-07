@@ -113,10 +113,12 @@ addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 const photoPopupContainer = document.querySelector(".popup_type_photo");
 const photoCloseButton = photoPopupContainer.querySelector(".popup__close-button")
 const popupImage = photoPopupContainer.querySelector(".popup__image");
+const popupCaption = photoPopupContainer.querySelector(".popup__caption")
 
 function handlePhotoClick(photo) {
     popupImage.src = photo.src;
     popupImage.alt = photo.alt;
+    popupCaption.textContent = photo.alt;
     photoPopupContainer.classList.toggle("popup_opened");
 }
 
