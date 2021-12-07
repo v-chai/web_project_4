@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./pages/index.css" />
 </head>
 <body class="page">
-    <section class="popup">
+    <section class="popup popup_type_profile-edit">
         <div class="popup__container">
             <button type="button" class="popup__close-button">&nbsp;</button>
             <div class="popup__box">
@@ -35,6 +35,13 @@
             </div>
         </div>
     </section>
+    <section class="popup popup_type_photo">
+        <div class="popup__photo">
+            <button class="popup__close-button popup__close-button_photo">&nbsp;</button>
+            <img class="popup__image" src=" " alt=" ">
+            <p class="popup__caption"></p>
+        </div>
+    </section>
     <div class="container">
         <header class="header">
             <img class="header__logo" src="./images/header__logo.svg" alt="Around the U.S.">
@@ -55,7 +62,7 @@
             <section class="elements">
                 <template id="card">
                     <article class="element">
-                        <img class="element__photo">
+                        <img class="element__photo" src=" " alt=" ">
                         <img class="element__delete-icon" src="./images/delete.svg" alt="Delete photo">
                         <div class="element__title">
                             <h2 class="element__text"></h2>
