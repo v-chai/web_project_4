@@ -1,11 +1,12 @@
 .element__heart {
+    background-color: white;
+    background-image: url("../../../images/heart_outline.svg");
     min-width: 21px;
     height: 21px;
     margin: 0;
     border: 0;
     padding: 0;
-    background-color: white;
-    background-image: url("../../../images/heart_outline.svg");
+    opacity: 1;
     background-size: contain;
     background-repeat: no-repeat;
 }
