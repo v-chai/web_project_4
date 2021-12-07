@@ -79,7 +79,7 @@ function addCard(cardName, cardLink) {
     });
 
     cardElement.querySelector(".element__photo").addEventListener("click", function (evt) {
-        photoPopup(evt.target);
+        handlePhotoClick(evt.target);
     });
 }
 
@@ -109,14 +109,20 @@ cardPopupClose.addEventListener("click", handleAddCardClick);
 addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
 
-// // Photo popup //
-// function handlePhotoClick() {
-//     const photoPopup = document.querySelector(".popup__container_type_photo");
-//     photoPopup.classList.toggle("popup_opened");
-// }
-// function photoPopup(photo) {
-//     photo.addEventListener("click", handlePhotoClick);
-// }
+// Photo popup //
+const photoPopupContainer = document.querySelector(".popup_type_photo");
+const photoCloseButton = photoPopupContainer.querySelector(".popup__close-button")
+const popupImage = photoPopupContainer.querySelector(".popup__image");
+
+function handlePhotoClick(photo) {
+    popupImage.src = photo.src;
+    popupImage.alt = photo.alt;
+    photoPopupContainer.classList.toggle("popup_opened");
+}
+
+photoCloseButton.addEventListener("click", handlePhotoClick);
+
+
 
 
 
