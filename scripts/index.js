@@ -18,25 +18,25 @@ function createCard(cardObject) {
     cardPhoto.src = cardObject["link"];
     cardPhoto.alt = cardObject["name"];
     cardElement.querySelector(".element__text").textContent = cardObject["name"];
+    cardElement.querySelector(".element__delete-icon").addEventListener("click", function (evt) {
+        const cardItem = evt.target.closest(".element");
+        cardItem.remove();
+    });
+
+    cardElement.querySelector(".element__heart").addEventListener("click", function (evt) {
+        evt.target.classList.toggle('element__heart_like_true');
+    });
+
+    cardElement.querySelector(".element__photo").addEventListener("click", function (evt) {
+        handlePhotoClick(evt.target);
+    });
+
     return cardElement;
 };
 
 function renderCard(cardObject) {
     const newCard = createCard(cardObject)
     cardElements.prepend(newCard);
-
-    newCard.querySelector(".element__delete-icon").addEventListener("click", function (evt) {
-        const cardItem = evt.target.closest(".element");
-        cardItem.remove();
-    });
-
-    newCard.querySelector(".element__heart").addEventListener("click", function (evt) {
-        evt.target.classList.toggle('element__heart_like_true');
-    });
-
-    newCard.querySelector(".element__photo").addEventListener("click", function (evt) {
-        handlePhotoClick(evt.target);
-    });
 };
 
 /** Initial cards */
@@ -66,7 +66,7 @@ const initialCards = [
         link: "./images/new-haven.jpg"
     }
 ];
-initialCards.forEach(card => renderCard(card));
+initialCards.forEach(renderCard);
 
 /** Profile edit form popup */
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -99,7 +99,7 @@ profileEditForm.addEventListener("submit", handleProfileFormSubmit);
 const addCardButton = document.querySelector(".profile__add-button");
 const addCardPopup = document.querySelector("#add-card-popup");
 const addCardPopupClose = addCardPopup.querySelector(".popup__close-button");
-const addCardForm = addCardPopup.querySelector(".popup__form");
+const addCardForm = addCardPopup.querySelector("#add_photo_form");
 const imageTitle = addCardPopup.querySelector("#popup__form_title");
 const imageUrl = addCardPopup.querySelector("#popup__form_image-url");
 
@@ -107,8 +107,7 @@ function handleAddCardFormSubmit(evt) {
     evt.preventDefault();
     renderCard( {name: imageTitle.value, link: imageUrl.value} );
     closeModalWindow(addCardPopup);
-    imageTitle.value = '';
-    imageUrl.value = '';
+    addCardForm.reset();
 };
 
 addCardButton.addEventListener("click", function () { openModalWindow(addCardPopup) });
@@ -125,7 +124,7 @@ function handlePhotoClick(photo) {
     popupImage.src = photo.src;
     popupImage.alt = photo.alt;
     popupCaption.textContent = photo.alt;
-    photoPopupContainer.classList.add("popup_opened");
+    openModalWindow(photoPopupContainer);
 };
 
 photoCloseButton.addEventListener("click", function () { closeModalWindow(photoPopupContainer) });
