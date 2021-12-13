@@ -72,11 +72,11 @@ initialCards.forEach(renderCard);
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileEditPopup = document.querySelector("#profile-edit-popup");
 const profilePopupClose = profileEditPopup.querySelector(".popup__close-button");
-const profileEditForm = profileEditPopup.querySelector(".popup__form");
+const profileEditForm = profileEditPopup.querySelector(".form");
 const userName = document.querySelector(".profile__name");
 const userDescription = document.querySelector(".profile__subheading");
-const nameInput = profileEditPopup.querySelector("#popup__form_username");
-const aboutMeInput = profileEditPopup.querySelector("#popup__form_about-me");
+const nameInput = profileEditPopup.querySelector("#username-input");
+const aboutMeInput = profileEditPopup.querySelector("#about-me-input");
 
 function handleProfileEditClick() {
     openModalWindow(profileEditPopup);
@@ -99,9 +99,9 @@ profileEditForm.addEventListener("submit", handleProfileFormSubmit);
 const addCardButton = document.querySelector(".profile__add-button");
 const addCardPopup = document.querySelector("#add-card-popup");
 const addCardPopupClose = addCardPopup.querySelector(".popup__close-button");
-const addCardForm = addCardPopup.querySelector("#add_photo_form");
-const imageTitle = addCardPopup.querySelector("#popup__form_title");
-const imageUrl = addCardPopup.querySelector("#popup__form_image-url");
+const addCardForm = addCardPopup.querySelector("#add-photo-form");
+const imageTitle = addCardPopup.querySelector("#image-title-input");
+const imageUrl = addCardPopup.querySelector("#image-url-input");
 
 function handleAddCardFormSubmit(evt) {
     evt.preventDefault();
@@ -128,3 +128,69 @@ function handlePhotoClick(photo) {
 };
 
 photoCloseButton.addEventListener("click", function () { closeModalWindow(photoPopupContainer) });
+
+/** Form validation */
+const showInputError = (formElement, inputElement, errorMessage) => {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.add("form__input_type_error");
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add("form__input-error_active");
+};
+
+const hideInputError = (formElement, inputElement) => {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove("form__input_type_error");
+    errorElement.classList.remove("form__input-error_active");
+    errorElement.textContent = "";
+}; 
+
+const checkInputValidity = (formElement, inputElement) => {
+    if (!inputElement.validity.valid) {
+        showInputError(formElement, inputElement, inputElement.validationMessage);
+    } else {
+        hideInputError(formElement, inputElement);
+    }
+}; 
+
+const hasInvalidInput = (inputList) => {
+    return inputList.some((inputElement) => {
+        return !inputElement.validity.valid;
+    });
+};
+
+const toggleButtonState = (inputList, buttonElement) => {
+    console.log(hasInvalidInput(inputList));
+    if (hasInvalidInput(inputList)) {
+        buttonElement.classList.add("form__submit_inactive");
+        buttonElement.setAttribute("disabled", "");
+    } else {
+        buttonElement.classList.remove("form__submit_inactive");
+        buttonElement.removeAttribute("disabled");
+    }
+};
+
+const setEventListeners = (formElement) => {
+    const inputList = Array.from(formElement.querySelectorAll(".form__input"));
+    const buttonElement = formElement.querySelector(".form__submit");
+    toggleButtonState(inputList, buttonElement);
+    inputList.forEach((inputElement) => {
+        inputElement.addEventListener("input", function () {
+            checkInputValidity(formElement, inputElement);
+            toggleButtonState(inputList, buttonElement);
+        });
+    });
+};
+
+
+function enableValidation() {
+    const formList = Array.from(document.querySelectorAll(".form"));
+
+    formList.forEach((formElement) => {
+        formElement.addEventListener("submit", (evt) => {
+            evt.preventDefault();
+        });
+        setEventListeners(formElement);
+    });
+};
+
+enableValidation();

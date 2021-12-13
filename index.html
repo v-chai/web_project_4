@@ -13,10 +13,12 @@
             <button type="button" class="popup__close-button">&nbsp;</button>
             <div class="popup__box">
                 <h2 class="popup__title">Edit Profile</h2>
-                <form class="popup__form" id="profile_edit_form" name="profile_edit_form">
-                    <input type="text" class="popup__form-input" value="Name" id="popup__form_username" name="username" />
-                    <input type="text" class="popup__form-input" value="About me" id="popup__form_about-me" name="about-me" />
-                    <button type="submit" class="popup__save-button">Save</button>
+                <form class="form" id="profile_edit_form" name="profile_edit_form" novalidate>
+                    <input type="text" class="form__input" placeholder="Name" id="username-input" name="username" minlength=2 maxlength=40 required />
+                    <span class="form__input-error username-input-error"></span>
+                    <input type="text" class="form__input" placeholder="About me" id="about-me-input" name="about-me" minlength=2 maxlength=200 required />
+                    <span class="form__input-error about-me-input-error"></span>
+                    <button type="submit" class="form__submit">Save</button>
                 </form>
             </div>
         </div>
@@ -26,11 +28,13 @@
             <button class="popup__close-button">&nbsp;</button>
             <div class="popup__box">
                 <h2 class="popup__title">New Place</h2>
-                <form class="popup__form" id="add_photo_form" name="add_photo_form">
-                    <input type="text" class="popup__form-input" placeholder="Title" id="popup__form_title" name="title" required />
-                    <input type="text" class="popup__form-input" placeholder="Image link" id="popup__form_image-url"
+                <form class="form" id="add-photo-form" name="add-photo-form" novalidate>
+                    <input type="text" class="form__input" placeholder="Title" id="image-title-input" name="title" minlength=2 maxlength=30 required />
+                    <span class="form__input-error image-title-input-error"></span>
+                    <input type="url" class="form__input" placeholder="Image link" id="image-url-input"
                         name="image-url" required />
-                    <button class="popup__save-button">Create</button>
+                    <span class="form__input-error image-url-input-error"></span>
+                    <button class="form__submit">Create</button>
                 </form>
             </div>
         </div>

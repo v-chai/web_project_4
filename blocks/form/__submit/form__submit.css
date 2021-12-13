@@ -1,4 +1,4 @@
-.popup__save-button {
+.form__submit {
     background: #000000;
     border: 0;
     border-radius: 2px;
@@ -9,13 +9,13 @@
     margin-top: 16px;
 }
 
-.popup__save-button:hover {
+.form__submit:hover {
     opacity: 0.8;
     cursor: pointer;
 }
 
 @media screen and (min-width:700px) {
-    .popup__save-button {
+    .form__submit {
         font-size: 18px;
         padding: 13.66px 0 18.5px;
         margin-top: 18px;
