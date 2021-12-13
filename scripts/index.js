@@ -1,4 +1,5 @@
 /** General Popup Functions */
+const popupScreen = document.querySelectorAll(".popup");
 function openModalWindow(modalWindow) {
     modalWindow.classList.add("popup_opened");
 };
@@ -6,6 +7,13 @@ function openModalWindow(modalWindow) {
 function closeModalWindow(modalWindow) {
     modalWindow.classList.remove("popup_opened");
 };
+
+function handleOutsidePopupClick(evt) {
+    if (!evt.target.classList.contains('popup__box') && !evt.target.classList.contains('popup__photo')) {
+        evt.currentTarget.classList.remove("popup_opened");
+    };
+};
+popupScreen.forEach((popup) => { popup.addEventListener('click', handleOutsidePopupClick) });
 
 /** Cards */
 const cardTemplate = document.querySelector("#card").content;
@@ -194,3 +202,4 @@ function enableValidation() {
 };
 
 enableValidation();
+
