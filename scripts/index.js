@@ -10,17 +10,17 @@ function closeModalWindow(modalWindow) {
 
 function handleOutsidePopupClick(evt) {
     if (evt.target === evt.currentTarget) {
-        evt.currentTarget.classList.remove("popup_opened");
+        closeModalWindow(evt.currentTarget);
     };
 };
 
-// function handleEscape {
-
-// };
-
 popupScreen.forEach((popup) => { 
     popup.addEventListener('click', handleOutsidePopupClick);
-
+    document.addEventListener('keydown', function(evt) {
+        if (evt.key === "Escape") {
+            closeModalWindow(popup);
+        };
+    });
 });
 
 /** Cards */
