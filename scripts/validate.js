@@ -68,3 +68,13 @@ enableValidation({
     inputErrorClass: "form__input_type_error",
     errorClass: "form__input-error_active"
 });
+
+/** Reset validation */
+const resetValidation = (form) => {
+    const inputList = Array.from(form.querySelectorAll(".form__input"));
+        inputList.forEach((inputElement) => {
+            hideInputError(form, inputElement, "form__input_type_error", "form__input-error_active")
+        });
+    };
+
+export {resetValidation, hideInputError};

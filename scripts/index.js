@@ -1,3 +1,5 @@
+import { resetValidation } from './validate.js';
+
 /** General Popup Functions */
 const popupScreen = document.querySelectorAll(".popup");
 function openModalWindow(modalWindow) {
@@ -6,6 +8,9 @@ function openModalWindow(modalWindow) {
 
 function closeModalWindow(modalWindow) {
     modalWindow.classList.remove("popup_opened");
+    const modalForm = modalWindow.querySelector(".form")
+    modalForm.reset();
+    resetValidation(modalForm);
 };
 
 function handleOutsidePopupClick(evt) {
@@ -123,7 +128,6 @@ function handleAddCardFormSubmit(evt) {
     evt.preventDefault();
     renderCard( {name: imageTitle.value, link: imageUrl.value} );
     closeModalWindow(addCardPopup);
-    addCardForm.reset();
 };
 
 addCardButton.addEventListener("click", function () { openModalWindow(addCardPopup) });
@@ -144,3 +148,5 @@ function handlePhotoClick(photo) {
 };
 
 photoCloseButton.addEventListener("click", function () { closeModalWindow(photoPopupContainer) });
+
+
