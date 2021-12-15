@@ -28,7 +28,6 @@ const hasInvalidInput = (inputList) => {
 };
 
 const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
-    console.log(hasInvalidInput(inputList));
     if (hasInvalidInput(inputList)) {
         buttonElement.classList.add(inactiveButtonClass);
         buttonElement.setAttribute("disabled", "");
@@ -60,14 +59,16 @@ function enableValidation(object) {
     });
 };
 
-enableValidation({
+const validationConfig = {
     formSelector: ".form",
     inputSelector: ".form__input",
     submitButtonSelector: ".form__submit",
     inactiveButtonClass: "form__submit_inactive",
     inputErrorClass: "form__input_type_error",
     errorClass: "form__input-error_active"
-});
+};
+
+enableValidation(validationConfig);
 
 /** Reset validation */
 const resetValidation = (form) => {
@@ -77,4 +78,4 @@ const resetValidation = (form) => {
         });
     };
 
-export {resetValidation, hideInputError};
+export { resetValidation, toggleButtonState, validationConfig};
