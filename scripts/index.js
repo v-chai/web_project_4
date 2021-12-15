@@ -1,3 +1,4 @@
+import { initialCards } from './initial-cards.js';
 import { resetValidation, toggleButtonState, validationConfig } from './validate.js';
 
 /** General Popup Functions */
@@ -61,33 +62,6 @@ function renderCard(cardObject) {
     cardElements.prepend(newCard);
 };
 
-/** Initial cards */
-const initialCards = [
-    {
-        name: "Oakland Bay Bridge",
-        link: "./images/oakland.jpg"
-    },
-    {
-        name: "Washington DC Metro",
-        link: "./images/dc.jpg"
-    },
-    {
-        name: "Manhattan Bridge",
-        link: "./images/new-york.jpg"
-    },
-    {
-        name: "Portland, OR",
-        link: "./images/portland.jpg"
-    },
-    {
-        name: "Minneapolis Stone Arch",
-        link: "./images/minneapolis.jpg"
-    },
-    {
-        name: "New Haven, CT",
-        link: "./images/new-haven.jpg"
-    }
-];
 initialCards.forEach(renderCard);
 
 /** Profile edit form popup */
