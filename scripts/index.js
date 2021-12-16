@@ -1,23 +1,25 @@
 import { initialCards } from './initial-cards.js';
-import { resetValidation, toggleButtonState, validationConfig } from './validate.js';
+import { resetValidation, validationConfig } from './validate.js';
 
 /** General Popup Functions */
 const popupScreen = document.querySelectorAll(".popup");
+
 function openModalWindow(modalWindow) {
     modalWindow.classList.add("popup_opened");
-    document.addEventListener('keydown', function (evt) {
-        if (evt.key === "Escape") {
-            closeModalWindow(modalWindow);
-        };
-    });
+    document.addEventListener("keyup", handleEscape);
 };
 
 function closeModalWindow(modalWindow) {
-    const modalForm = modalWindow.querySelector(".form")
-    if (modalForm) {
-        resetForm(modalForm); // Added here because if I add it to the form-specific handlers, it repeats code and doesn't trigger on Escape or Outside popup click closes)
-    };
+    document.removeEventListener("keyup", handleEscape);
     modalWindow.classList.remove("popup_opened");
+};
+
+function handleEscape(evt) {
+    evt.preventDefault();
+    const activePopup = document.querySelector(".popup_opened");
+    if (evt.key === "Escape") {
+        closeModalWindow(activePopup);
+    };
 };
 
 function handleOutsidePopupClick(evt) {
@@ -76,6 +78,7 @@ const aboutMeInput = profileEditPopup.querySelector("#about-me-input");
 
 function handleProfileEditClick() {
     openModalWindow(profileEditPopup);
+    resetForm(profileEditForm);
     nameInput.value = userName.textContent;
     aboutMeInput.value = userDescription.textContent;
 };
@@ -85,6 +88,7 @@ function handleProfileFormSubmit(evt) {
     userName.textContent = nameInput.value;
     userDescription.textContent = aboutMeInput.value;
     closeModalWindow(profileEditPopup);
+    resetForm(profileEditForm);
 };
 
 profileEditButton.addEventListener("click", handleProfileEditClick);
@@ -105,9 +109,13 @@ function handleAddCardFormSubmit(evt) {
     evt.preventDefault();
     renderCard( {name: imageTitle.value, link: imageUrl.value} );
     closeModalWindow(popupAddCard);
+    resetForm(addCardForm);
 };
 
-addCardButton.addEventListener("click", function () { openModalWindow(popupAddCard) });
+addCardButton.addEventListener("click", function () { 
+    resetForm(addCardForm); 
+    openModalWindow(popupAddCard) 
+});
 addCardPopupClose.addEventListener("click", function () { 
     closeModalWindow(popupAddCard);
 });
