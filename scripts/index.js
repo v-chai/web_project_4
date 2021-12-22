@@ -1,26 +1,10 @@
-import { initialCards } from './initial-cards.js';
-import { resetValidation, validationConfig } from './validate.js';
+import { initialCards, validationConfig } from './data.js';
+import Card from './card.js';
+import FormValidator from './form-validator.js';
+import { openModalWindow, closeModalWindow } from './utils.js';
 
 /** General Popup Functions */
 const popupScreen = document.querySelectorAll(".popup");
-
-function openModalWindow(modalWindow) {
-    modalWindow.classList.add("popup_opened");
-    document.addEventListener("keyup", handleEscape);
-};
-
-function closeModalWindow(modalWindow) {
-    document.removeEventListener("keyup", handleEscape);
-    modalWindow.classList.remove("popup_opened");
-};
-
-function handleEscape(evt) {
-    evt.preventDefault();
-    const activePopup = document.querySelector(".popup_opened");
-    if (evt.key === "Escape") {
-        closeModalWindow(activePopup);
-    };
-};
 
 function handleOutsidePopupClick(evt) {
     if (evt.target === evt.currentTarget) {
@@ -29,42 +13,20 @@ function handleOutsidePopupClick(evt) {
 };
 
 popupScreen.forEach((popup) => { 
-    popup.addEventListener('click', handleOutsidePopupClick);
+    popup.addEventListener('mousedown', handleOutsidePopupClick);
 });
 
 /** Cards */
-const cardTemplate = document.querySelector("#card").content;
-const cardElements = document.querySelector(".elements");
+const cardSection = document.querySelector(".elements");
 
-function createCard(cardObject) {
-    const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
-    const cardPhoto = cardElement.querySelector(".element__photo");
-
-    cardPhoto.src = cardObject["link"];
-    cardPhoto.alt = cardObject["name"];
-    cardElement.querySelector(".element__text").textContent = cardObject["name"];
-    cardElement.querySelector(".element__delete-icon").addEventListener("click", function (evt) {
-        const cardItem = evt.target.closest(".element");
-        cardItem.remove();
-    });
-
-    cardElement.querySelector(".element__heart").addEventListener("click", function (evt) {
-        evt.target.classList.toggle('element__heart_like_true');
-    });
-
-    cardElement.querySelector(".element__photo").addEventListener("click", function (evt) {
-        handlePhotoClick(evt.target);
-    });
-
-    return cardElement;
+function renderCard(cardData, section) {
+    const newCard = new Card(cardData, "#card").createCard();
+    section.prepend(newCard);
 };
 
-function renderCard(cardObject) {
-    const newCard = createCard(cardObject)
-    cardElements.prepend(newCard);
-};
-
-initialCards.forEach(renderCard);
+initialCards.forEach((cardObject) => {
+    renderCard(cardObject, cardSection);
+});
 
 /** Profile edit form popup */
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -107,7 +69,7 @@ const imageUrl = popupAddCard.querySelector("#image-url-input");
 
 function handleAddCardFormSubmit(evt) {
     evt.preventDefault();
-    renderCard( {name: imageTitle.value, link: imageUrl.value} );
+    renderCard({ name: imageTitle.value, link: imageUrl.value }, cardSection);
     closeModalWindow(popupAddCard);
     resetForm(addCardForm);
 };
@@ -123,24 +85,30 @@ addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
 /**  Photo popup */
 const photoPopupContainer = document.querySelector("#photo-popup");
-const photoCloseButton = photoPopupContainer.querySelector(".popup__close-button")
-const popupImage = photoPopupContainer.querySelector(".popup__image");
-const popupCaption = photoPopupContainer.querySelector(".popup__caption")
-
-function handlePhotoClick(photo) {
-    popupImage.src = photo.src;
-    popupImage.alt = photo.alt;
-    popupCaption.textContent = photo.alt;
-    openModalWindow(photoPopupContainer);
-};
+const photoCloseButton = photoPopupContainer.querySelector(".popup__close-button");
 
 photoCloseButton.addEventListener("click", function () { closeModalWindow(photoPopupContainer) });
 
 /** Form reset */
+// function resetValidation() {
+//     FormValidator._inputList.forEach((inputElement) => {
+//         FormValidator.hideInputError(inputElement)
+//     });
+// }
+
 function resetForm(form) {
     form.reset();
-    resetValidation(form);
+//  FormValidator.resetValidation();
     const submitButton = form.querySelector(validationConfig.submitButtonSelector)
     submitButton.classList.add(validationConfig.inactiveButtonClass);
     submitButton.setAttribute("disabled", "");
 };
+
+function validateForms(config) {
+    const formList = Array.from(document.querySelectorAll(config.formSelector));
+    formList.forEach((formElement) => {
+        new FormValidator(config, formElement).enableValidation()
+    })
+};
+
+validateForms(validationConfig);
