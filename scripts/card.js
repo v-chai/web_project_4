@@ -1,14 +1,24 @@
 import {openModalWindow} from './utils.js'
+
+const photoPopupContainer = document.querySelector("#photo-popup");
+const popupImage = photoPopupContainer.querySelector(".popup__image");
+const popupCaption = photoPopupContainer.querySelector(".popup__caption");
+
 class Card {
 
     constructor(cardData, templateSelector) {
         this._photoLink = cardData.link;
         this._title = cardData.name;
         this._templateSelector = templateSelector;
+
     }
 
     createCard() {
         this._element = this._createCardElement();
+        this._photo = this._element.querySelector(".element__photo");
+        this._photoCaption = 
+        this._deleteIcon = this._element.querySelector(".element__delete-icon");
+        this._heartIcon = this._element.querySelector(".element__heart");
         this._populateCardElement();
         this._setEventListeners();
 
@@ -23,7 +33,6 @@ class Card {
     }
 
     _populateCardElement() {
-        this._photo = this._element.querySelector(".element__photo");
         this._element.querySelector(".element__text").textContent = this._title;
         this._photo.src = this._photoLink;
         this._photo.alt = this._title;
@@ -31,17 +40,12 @@ class Card {
     }
 
     _setEventListeners() {
-        this._element.querySelector(".element__delete-icon").addEventListener("click", () => this._handleDeleteCard());
-
-        this._element.querySelector(".element__heart").addEventListener("click", () => this._handlePhotoLike());
-
-        this._element.querySelector(".element__photo").addEventListener("click", () => this._handlePhotoClick());
+        this._deleteIcon.addEventListener("click", () => this._handleDeleteCard());
+        this._heartIcon.addEventListener("click", () => this._handlePhotoLike());
+        this._photo.addEventListener("click", () => this._handlePhotoClick());
     }
 
     _handlePhotoClick() {
-        const photoPopupContainer = document.querySelector("#photo-popup");
-        const popupImage = photoPopupContainer.querySelector(".popup__image");
-        const popupCaption = photoPopupContainer.querySelector(".popup__caption");
         popupImage.src = this._photoLink;
         popupImage.alt = this._title;
         popupCaption.textContent = this._title;
@@ -54,7 +58,7 @@ class Card {
     }
 
     _handlePhotoLike() {
-        this._element.querySelector('.element__heart').classList.toggle('element__heart_like_true');
+        this._heartIcon.classList.toggle('element__heart_like_true');
     }
 }
 

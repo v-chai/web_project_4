@@ -1,113 +1,84 @@
 import { initialCards, validationConfig } from './data.js';
-import Card from './card.js';
-import FormValidator from './form-validator.js';
-import { openModalWindow, closeModalWindow } from './utils.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import { openModalWindow, 
+        closeModalWindow, 
+        handleOutsidePopupClick,
+        handleProfileEditClick,
+        handleProfileFormSubmit
+    } from './utils.js';
 
-/** General Popup Functions */
-const popupScreen = document.querySelectorAll(".popup");
-
-function handleOutsidePopupClick(evt) {
-    if (evt.target === evt.currentTarget) {
-        closeModalWindow(evt.currentTarget);
-    };
-};
-
-popupScreen.forEach((popup) => { 
+/** Popup event listeners */
+const popups = document.querySelectorAll(".popup");
+popups.forEach((popup) => { 
     popup.addEventListener('mousedown', handleOutsidePopupClick);
+    popup.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('popup__close-button')) {
+            closeModalWindow(popup)
+        } 
+    });
 });
 
-/** Cards */
+/** Card Functions */
 const cardSection = document.querySelector(".elements");
 
-function renderCard(cardData, section) {
-    const newCard = new Card(cardData, "#card").createCard();
-    section.prepend(newCard);
+function addCard(cardData) {
+    return new Card(cardData, "#card").createCard();
+}
+
+function renderCard(card, section) {
+    section.prepend(card);
 };
 
-initialCards.forEach((cardObject) => {
-    renderCard(cardObject, cardSection);
+/** Populate initial cards */
+initialCards.forEach((initialCard) => {
+    renderCard(addCard(initialCard), cardSection);
 });
 
 /** Profile edit form popup */
 const profileEditButton = document.querySelector(".profile__edit-button");
-const profileEditPopup = document.querySelector("#profile-edit-popup");
-const profilePopupClose = profileEditPopup.querySelector(".popup__close-button");
-const profileEditForm = profileEditPopup.querySelector(".form");
-const userName = document.querySelector(".profile__name");
-const userDescription = document.querySelector(".profile__subheading");
-const nameInput = profileEditPopup.querySelector("#username-input");
-const aboutMeInput = profileEditPopup.querySelector("#about-me-input");
+const profileEditForm = document.querySelector("#profile_edit_form");
 
-function handleProfileEditClick() {
-    openModalWindow(profileEditPopup);
-    resetForm(profileEditForm);
-    nameInput.value = userName.textContent;
-    aboutMeInput.value = userDescription.textContent;
-};
-
-function handleProfileFormSubmit(evt) {
-    evt.preventDefault();
-    userName.textContent = nameInput.value;
-    userDescription.textContent = aboutMeInput.value;
-    closeModalWindow(profileEditPopup);
-    resetForm(profileEditForm);
-};
-
-profileEditButton.addEventListener("click", handleProfileEditClick);
-profilePopupClose.addEventListener("click", function () { 
-    closeModalWindow(profileEditPopup);
-});
+profileEditButton.addEventListener("click", function () {
+    profileEditForm.reset();
+    formValidators['profile_edit_form'].resetValidation();   
+    handleProfileEditClick();
+    });
 profileEditForm.addEventListener("submit", handleProfileFormSubmit);
 
 /** Add card form popup */
-const addCardButton = document.querySelector(".profile__add-button");
-const popupAddCard = document.querySelector("#add-card-popup");
-const addCardPopupClose = popupAddCard.querySelector(".popup__close-button");
-const addCardForm = popupAddCard.querySelector("#add-photo-form");
-const imageTitle = popupAddCard.querySelector("#image-title-input");
-const imageUrl = popupAddCard.querySelector("#image-url-input");
+const newCardButton = document.querySelector(".profile__add-button");
+const newCardPopup = document.querySelector("#add-card-popup");
+const newCardForm = newCardPopup.querySelector("#add-photo-form");
+const imageTitle = newCardForm.querySelector("#image-title-input");
+const imageUrl = newCardForm.querySelector("#image-url-input");
 
 function handleAddCardFormSubmit(evt) {
     evt.preventDefault();
-    renderCard({ name: imageTitle.value, link: imageUrl.value }, cardSection);
-    closeModalWindow(popupAddCard);
-    resetForm(addCardForm);
+    renderCard(
+        addCard({ name: imageTitle.value, link: imageUrl.value }),
+        cardSection);
+    closeModalWindow(newCardPopup);
 };
 
-addCardButton.addEventListener("click", function () { 
-    resetForm(addCardForm); 
-    openModalWindow(popupAddCard) 
+newCardButton.addEventListener("click", function () { 
+    newCardForm.reset();
+    formValidators['add-photo-form'].resetValidation()
+    openModalWindow(newCardPopup) 
 });
-addCardPopupClose.addEventListener("click", function () { 
-    closeModalWindow(popupAddCard);
-});
-addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
-/**  Photo popup */
-const photoPopupContainer = document.querySelector("#photo-popup");
-const photoCloseButton = photoPopupContainer.querySelector(".popup__close-button");
+newCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
-photoCloseButton.addEventListener("click", function () { closeModalWindow(photoPopupContainer) });
-
-/** Form reset */
-// function resetValidation() {
-//     FormValidator._inputList.forEach((inputElement) => {
-//         FormValidator.hideInputError(inputElement)
-//     });
-// }
-
-function resetForm(form) {
-    form.reset();
-//  FormValidator.resetValidation();
-    const submitButton = form.querySelector(validationConfig.submitButtonSelector)
-    submitButton.classList.add(validationConfig.inactiveButtonClass);
-    submitButton.setAttribute("disabled", "");
-};
+/** Form validation */
+const formValidators = {}
 
 function validateForms(config) {
     const formList = Array.from(document.querySelectorAll(config.formSelector));
     formList.forEach((formElement) => {
-        new FormValidator(config, formElement).enableValidation()
+        const validator = new FormValidator(config, formElement);
+        const formName = formElement.getAttribute('name')
+        formValidators[formName] = validator;
+        validator.enableValidation();
     })
 };
 

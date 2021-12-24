@@ -1,5 +1,4 @@
-const popupScreen = document.querySelectorAll(".popup");
-
+/** General Popup Functions & Event Handlers */ 
 function openModalWindow(modalWindow) {
     modalWindow.classList.add("popup_opened");
     document.addEventListener("keyup", handleEscape);
@@ -12,10 +11,42 @@ function closeModalWindow(modalWindow) {
 
 function handleEscape(evt) {
     evt.preventDefault();
-    const activePopup = document.querySelector(".popup_opened");
     if (evt.key === "Escape") {
+        const activePopup = document.querySelector(".popup_opened");
         closeModalWindow(activePopup);
     };
 };
 
-export {openModalWindow, closeModalWindow}
+function handleOutsidePopupClick(evt) {
+    if (evt.target === evt.currentTarget) {
+        closeModalWindow(evt.currentTarget);
+    };
+};
+
+/** Profile Edit Form Event Handlers */ 
+const profileEditPopup = document.querySelector("#profile-edit-popup");
+const userName = document.querySelector(".profile__name");
+const userDescription = document.querySelector(".profile__subheading");
+const nameInput = profileEditPopup.querySelector("#username-input");
+const aboutMeInput = profileEditPopup.querySelector("#about-me-input");
+
+function handleProfileEditClick() {
+    openModalWindow(profileEditPopup);
+    nameInput.value = userName.textContent;
+    aboutMeInput.value = userDescription.textContent;
+};
+
+function handleProfileFormSubmit(evt) {
+    evt.preventDefault();
+    userName.textContent = nameInput.value;
+    userDescription.textContent = aboutMeInput.value;
+    closeModalWindow(profileEditPopup);
+};
+
+export { 
+    openModalWindow, 
+    closeModalWindow, 
+    handleOutsidePopupClick,
+    handleProfileEditClick,
+    handleProfileFormSubmit
+}
