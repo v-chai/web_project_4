@@ -11,8 +11,6 @@ export default class Section {
     }
 
     addItem(element) {
-        this._containerSelector === ".elements" ? 
-            this._container.prepend(element)
-            : this._container.append(element);
+        this._containerSelector === ".elements" ? this._container.prepend(element) : this._container.append(element);
     }
 }
