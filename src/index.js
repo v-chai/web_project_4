@@ -10,23 +10,23 @@ import Section from './scripts/Section.js';
 import PopupWithForm from './scripts/PopupWithForm.js';
 import PopupWithImage from './scripts/PopupWithImage.js';
 
-/** Card Functions */
-
+/** Populate Initial Cards */
 const cardSection = new Section({ items: initialCards, renderer: (item) => {
-    const card = new Card( {cardData: item, 
-                        templateSelector: "#card", 
-                        handleCardClick: (cardImage) => {
+    const card = new Card(item, 
+                        "#card", 
+                        (cardImage) => {
                             new PopupWithImage({
                                 popupSelector: "#photo-popup"
                             }).open(cardImage);
-                        }}
+                        }
     )
-    const cardElement = card.createCard()
-    cardSection.addItem(cardElement)
+    const cardElement = card.createCard();
+    cardSection.addItem(cardElement);
     }
 }, ".elements");
 
 /** Profile edit form popup */
+
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileEditForm = document.querySelector("#profile_edit_form");
 
@@ -34,31 +34,35 @@ profileEditButton.addEventListener("click", function () {
     profileEditForm.reset();
     formValidators['profile_edit_form'].resetValidation();   
     handleProfileEditClick();
+    const profileEditPopup = new PopupWithForm("#profile-edit-popup", handleProfileFormSubmit)
+    profileEditPopup.setEventListeners();
+    profileEditPopup.open();
     });
-profileEditForm.addEventListener("submit", handleProfileFormSubmit);
 
 /** Add card form popup */
 const newCardButton = document.querySelector(".profile__add-button");
-const newCardPopup = document.querySelector("#add-card-popup");
-const newCardForm = newCardPopup.querySelector("#add-photo-form");
+const newCardForm = document.querySelector("#add-photo-form");
 const imageTitle = newCardForm.querySelector("#image-title-input");
 const imageUrl = newCardForm.querySelector("#image-url-input");
 
 function handleAddCardFormSubmit(evt) {
     evt.preventDefault();
-    renderCard(
-        addCard({ name: imageTitle.value, link: imageUrl.value }),
-        cardSection);
-    closeModalWindow(newCardPopup);
+    const new_card = new Card({ name: imageTitle.value, link: imageUrl.value }, "#card", (cardImage) => {
+        new PopupWithImage({
+            popupSelector: "#photo-popup"
+        }).open(cardImage);
+    }
+    )
+    cardSection.addItem(new_card.createCard())
 };
 
 newCardButton.addEventListener("click", function () { 
     newCardForm.reset();
-    formValidators['add-photo-form'].resetValidation()
-    openModalWindow(newCardPopup) 
+    formValidators['add-photo-form'].resetValidation();
+    const addPhotoPopup = new PopupWithForm("#add-card-popup", handleAddCardFormSubmit);
+    addPhotoPopup.setEventListeners();
+    addPhotoPopup.open();
 });
-
-newCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
 /** Form validation */
 const formValidators = {}
