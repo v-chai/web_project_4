@@ -1,39 +1,30 @@
 import { initialCards, validationConfig } from './data.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
-import { openModalWindow, 
-        closeModalWindow, 
-        handleOutsidePopupClick,
+import { 
         handleProfileEditClick,
         handleProfileFormSubmit
     } from './utils.js';
-
-/** Popup event listeners */
-const popups = document.querySelectorAll(".popup");
-popups.forEach((popup) => { 
-    popup.addEventListener('mousedown', handleOutsidePopupClick);
-    popup.addEventListener('click', (evt) => {
-        if (evt.target.classList.contains('popup__close-button')) {
-            closeModalWindow(popup)
-        } 
-    });
-});
+import Section from './Section.js';
+import PopupWithForm from './PopupWithForm.js';
+import PopupWithImage from './PopupWithImage.js';
 
 /** Card Functions */
 const cardSection = document.querySelector(".elements");
 
-function addCard(cardData) {
-    return new Card(cardData, "#card").createCard();
-}
-
-function renderCard(card, section) {
-    section.prepend(card);
-};
-
-/** Populate initial cards */
-initialCards.forEach((initialCard) => {
-    renderCard(addCard(initialCard), cardSection);
-});
+const cardSection = new Section({ items: initialCards, renderer: (item) => {
+    const card = new Card( {cardData: item, 
+                        templateSelector: "#card", 
+                        handleCardClick: (cardImage) => {
+                            new PopupWithImage({
+                                popupSelector: "#photo-popup"
+                            }).open(cardImage);
+                        }}
+    )
+    const cardElement = card.createCard()
+    cardSection.addItem(cardElement)
+    }
+}, ".elements");
 
 /** Profile edit form popup */
 const profileEditButton = document.querySelector(".profile__edit-button");

@@ -1,22 +1,17 @@
-import {openModalWindow} from './utils.js'
+export default class Card {
 
-const photoPopupContainer = document.querySelector("#photo-popup");
-const popupImage = photoPopupContainer.querySelector(".popup__image");
-const popupCaption = photoPopupContainer.querySelector(".popup__caption");
-
-class Card {
-
-    constructor(cardData, templateSelector) {
+    constructor(cardData, templateSelector, handleCardClick) {
         this._photoLink = cardData.link;
         this._title = cardData.name;
         this._templateSelector = templateSelector;
+        this._handleCardClick = handleCardClick;
 
     }
-
+ 
     createCard() {
         this._element = this._createCardElement();
         this._photo = this._element.querySelector(".element__photo");
-        this._photoCaption = 
+        this._photoCaption = this._element.querySelector(".element__title");
         this._deleteIcon = this._element.querySelector(".element__delete-icon");
         this._heartIcon = this._element.querySelector(".element__heart");
         this._populateCardElement();
@@ -42,14 +37,7 @@ class Card {
     _setEventListeners() {
         this._deleteIcon.addEventListener("click", () => this._handleDeleteCard());
         this._heartIcon.addEventListener("click", () => this._handlePhotoLike());
-        this._photo.addEventListener("click", () => this._handlePhotoClick());
-    }
-
-    _handlePhotoClick() {
-        popupImage.src = this._photoLink;
-        popupImage.alt = this._title;
-        popupCaption.textContent = this._title;
-        openModalWindow(photoPopupContainer);
+        this._photo.addEventListener("click", () => this._handleCardClick());
     }
 
     _handleDeleteCard() {
@@ -61,5 +49,3 @@ class Card {
         this._heartIcon.classList.toggle('element__heart_like_true');
     }
 }
-
-export default Card;
